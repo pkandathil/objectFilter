@@ -1,0 +1,23 @@
+{
+  "name": "objectfilter",
+  "version": "1.0.0",
+  "description": "Filtering on an object. Demo repo.",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "test:debug": "node --inspect-brk ./node_modules/.bin/jest --verbose --runInBand --forceExit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pkandathil/objectFilter.git"
+  },
+  "author": "Prashant Kandathil",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pkandathil/objectFilter/issues"
+  },
+  "homepage": "https://github.com/pkandathil/objectFilter#readme",
+  "devDependencies": {
+    "jest": "^24.7.1"
+  }
+}
