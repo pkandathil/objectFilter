@@ -67,7 +67,32 @@ describe('Object Filtering', () => {
     expect(result.items.length).toEqual(2)
   })
 
-  it.only('filter items in more complex object with array by field value', () => {
+  it('filter items in object with array by field value', () => {
+    const inputObject = {
+      cart: {
+          items: [
+          {
+            value: "1"
+          },
+          {
+            value: "2"
+          },
+          {
+            value: "3"
+          },
+          {
+            value: "4"
+          }
+        ]
+      },
+      test: {id: 1}
+    }
+    const filter = 'cart.items.value=1,3'
+    const result = objectFilter(inputObject, filter)
+    expect(result.cart.items.length).toEqual(2)
+  })
+
+  it('filter items in more complex object with array by field value', () => {
     const inputObject = {
       "ShoppingCart": {
         "id": "123-456-789",
@@ -131,6 +156,6 @@ describe('Object Filtering', () => {
     }
     const filter = 'ShoppingCart.cartItem.product.characteristic.value=34,56'
     const result = objectFilter(inputObject, filter)
-    expect(result.ShoppingCart.cartItem.product.characteristic.length).toEqual(2)
+    expect(result.ShoppingCart.cartItem[0].product.characteristic.length).toEqual(1)
   }) 
 })
