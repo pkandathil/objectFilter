@@ -10,11 +10,6 @@ const objectFilter = (inputObject, filter) => {
   const filterFieldNames = filterParsed[0].split('.')
   let filterValues = filterParsed[1].split(',')
 
-  //assumed filtering only on int value
-  filterValues = filterValues.map((value) => {
-    return parseInt(value)
-  })
-
   //Traversing to field
   let objectToFilter = inputObject
   let filterFieldName = filterFieldNames[filterFieldNames.length-1]

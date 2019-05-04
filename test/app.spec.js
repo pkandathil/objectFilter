@@ -28,16 +28,16 @@ describe('Object Filtering', () => {
   it('filter items in array by field value', () => {
     const inputObject = [
       {
-        value: 1
+        value: "1"
       },
       {
-        value: 2
+        value: "2"
       },
       {
-        value: 3
+        value: "3"
       },
       {
-        value: 4
+        value: "4"
       }
     ]
     const filter = 'value=1,3'
@@ -48,18 +48,18 @@ describe('Object Filtering', () => {
   it('filter items in object with array by field value', () => {
     const inputObject = {
         items: [
-        {
-          value: 1
-        },
-        {
-          value: 2
-        },
-        {
-          value: 3
-        },
-        {
-          value: 4
-        }
+          {
+            value: "1"
+          },
+          {
+            value: "2"
+          },
+          {
+            value: "3"
+          },
+          {
+            value: "4"
+          }
       ]
     }
     const filter = 'items.value=1,3'
