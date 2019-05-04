@@ -10,39 +10,37 @@ const objectFilter = (inputObject, filter) => {
   const filterFieldNames = filterParsed[0].split('.')
   let filterValues = filterParsed[1].split(',')
 
-  //Traversing to field
-  let objectToFilter = inputObject
-  let filterFieldName = filterFieldNames[filterFieldNames.length-1]
-  filterFieldNames.forEach((fieldName, index) => {
-    if(index !== filterFieldNames.length - 1 && filterFieldNames.length > 1) {
-      objectToFilter = objectToFilter[fieldName]
-    }
-  })
+  let objectToFilter = JSON.parse(JSON.stringify(inputObject));
 
-  //Filtering values
-  const filteredResult = objectToFilter.filter((item) => {
-    let shouldKeepItem = false
-    const currentFieldValue = item[filterFieldName]
-    const indexOfItem = filterValues.indexOf(currentFieldValue)
-    if (indexOfItem > -1) {
-      shouldKeepItem = true
+  if (filterFieldNames.length > 1) {
+    
+    if(Array.isArray(objectToFilter)) {
+      //Looping over array items
+      objectToFilter = objectToFilter.map((item) => {
+        return objectFilter(item, filter)
+      })
+    } else {
+      //Recursion
+      const nextObject = objectToFilter[filterFieldNames[0]]
+      const newFilter = `${filterFieldNames.slice(1).join('.')}=${filterParsed[1]}`
+      objectToFilter[filterFieldNames[0]] = objectFilter(nextObject, newFilter)
     }
-    return shouldKeepItem
-  })
-
-  //Setting result
-  let result = {...inputObject}
-  if(filterFieldNames.length === 1) {
-    result = filteredResult
+    return objectToFilter
   } else {
-    filterFieldNames.forEach((fieldName, index) => {
-      if(index === filterFieldNames.length - 2) {
-        result[fieldName] = filteredResult
+    //Stopping point for reccursion
+    let filterFieldName = filterFieldNames[filterFieldNames.length-1]
+    //Filtering values
+    const filteredResult = objectToFilter.filter((item) => {
+      let shouldKeepItem = false
+      const currentFieldValue = item[filterFieldName]
+      const indexOfItem = filterValues.indexOf(currentFieldValue)
+      if (indexOfItem > -1) {
+        shouldKeepItem = true
       }
+      return shouldKeepItem
     })
+    return filteredResult
   }
-  
-  return result
 }
 
 module.exports = {
