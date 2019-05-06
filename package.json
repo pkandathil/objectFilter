@@ -19,5 +19,8 @@
   "homepage": "https://github.com/pkandathil/objectFilter#readme",
   "devDependencies": {
     "jest": "^24.7.1"
+  },
+  "dependencies": {
+    "ramda": "^0.26.1"
   }
 }
