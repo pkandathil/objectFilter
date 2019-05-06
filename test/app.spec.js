@@ -157,5 +157,33 @@ describe('Object Filtering', () => {
     const filter = 'ShoppingCart.cartItem.product.characteristic.value=34,56'
     const result = objectFilter(inputObject, filter)
     expect(result.ShoppingCart.cartItem[0].product.characteristic.length).toEqual(1)
-  }) 
+  })
+
+  it('throws an exception due to an invalid filter', () => {
+    const inputObject = {
+      cart: {
+          items: [
+          {
+            value: "1"
+          },
+          {
+            value: "2"
+          },
+          {
+            value: "3"
+          },
+          {
+            value: "4"
+          }
+        ]
+      },
+      test: {id: 1}
+    }
+    const filter = 'cart.value=1,3'
+    try {
+      const result = objectFilter(inputObject, filter)
+    } catch (error) {
+      expect(error.message).toEqual('Invalid filter')
+    }
+  })
 })
